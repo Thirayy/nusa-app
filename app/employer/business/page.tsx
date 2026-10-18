@@ -61,7 +61,7 @@ export default function EmployerBusinessPage() {
       <div className="space-y-6 max-w-2xl mx-auto">
         <div>
           <h1 className="text-2xl font-bold text-[#28665A]">Profil Bisnis Usaha</h1>
-          <p className="text-sm text-black-600 mt-1">Kelola informasi dasar identitas usaha Anda.</p>
+          <p className="text-sm text-gray-600 mt-1">Kelola informasi dasar identitas usaha Anda.</p>
         </div>
 
         {error && <div className="p-4 bg-amber-50 text-amber-800 text-sm rounded-xl border border-amber-200">{error}</div>}
@@ -70,38 +70,38 @@ export default function EmployerBusinessPage() {
         <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
           <form onSubmit={handleCreateBusiness} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-black-600 mb-1">Nama Usaha</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Nama Usaha</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Contoh: Kopi Senja Nusantara"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-black-600 mb-1">Kategori Usaha</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Kategori Usaha</label>
               <input
                 type="text"
                 required
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 placeholder="Contoh: F&B / Kuliner"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-black-600 mb-1">Lokasi / Kota</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Lokasi / Kota</label>
               <input
                 type="text"
                 required
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Contoh: Malang"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 

@@ -43,14 +43,14 @@ export default function EmployerDashboardPage() {
           <h1 className="text-2xl font-bold text-[#28665A]">
             {dashboard ? `Halo, Pemilik ${dashboard.business_name}` : "Beranda Usaha"}
           </h1>
-          <p className="text-sm text-black-600 mt-1">
+          <p className="text-sm text-gray-600 mt-1">
             Kelola operasional dan pantau performa usaha Anda dengan mudah.
           </p>
         </div>
 
         {/* Loading & Error State */}
         {loading && (
-          <div className="p-8 text-center text-black-500 bg-white rounded-2xl border border-[#EBE7DF]">
+          <div className="p-8 text-center text-gray-500 bg-white rounded-2xl border border-[#EBE7DF]">
             Memuat ringkasan usaha...
           </div>
         )}
@@ -99,33 +99,33 @@ export default function EmployerDashboardPage() {
             {/* Ringkasan Metrik (Metric Cards) */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
-                <p className="text-xs text-black-500 font-medium uppercase tracking-wider">Total Omzet</p>
+                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Total Omzet</p>
                 <h4 className="text-2xl font-bold text-[#28665A] mt-2">
                   Rp {Number(dashboard.total_omzet).toLocaleString("id-ID")}
                 </h4>
-                <p className="text-xs text-black-400 mt-1">{dashboard.total_transactions} transaksi tercatat</p>
+                <p className="text-xs text-gray-400 mt-1">{dashboard.total_transactions} transaksi tercatat</p>
               </div>
 
               <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
-                <p className="text-xs text-black-500 font-medium uppercase tracking-wider">Total Biaya Tercatat</p>
+                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Total Biaya Tercatat</p>
                 <h4 className="text-2xl font-bold text-[#D98652] mt-2">
                   Rp {Number(dashboard.total_costs).toLocaleString("id-ID")}
                 </h4>
-                <p className="text-xs text-black-400 mt-1">Pengeluaran operasional</p>
+                <p className="text-xs text-gray-400 mt-1">Pengeluaran operasional</p>
               </div>
 
               <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
-                <p className="text-xs text-black-500 font-medium uppercase tracking-wider">Estimasi Hasil Usaha</p>
-                <h4 className="text-2xl font-bold text-black-800 mt-2">
+                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Estimasi Hasil Usaha</p>
+                <h4 className="text-2xl font-bold text-gray-800 mt-2">
                   Rp {Number(dashboard.estimated_business_result).toLocaleString("id-ID")}
                 </h4>
-                <p className="text-xs text-black-400 mt-1">Omzet dikurangi biaya</p>
+                <p className="text-xs text-gray-400 mt-1">Omzet dikurangi biaya</p>
               </div>
             </div>
 
             {/* Disclaimer */}
-            <div className="bg-white p-4 rounded-xl border border-[#EBE7DF] text-xs text-black-500">
-              * {dashboard.disclaimer}
+            <div className="bg-white p-4 rounded-xl border border-[#EBE7DF] text-xs text-gray-500">
+              {dashboard.disclaimer}
             </div>
           </>
         )}

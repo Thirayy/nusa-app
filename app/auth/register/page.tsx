@@ -37,7 +37,7 @@ export default function RegisterPage() {
       <div className="max-w-md w-full bg-[#FFFFFF] rounded-2xl shadow-sm p-8 border border-[#EBE7DF]">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-[#28665A]">Daftar Akun NUSA</h1>
-          <p className="text-sm text-black-600 mt-1">Mulai kembangkan usaha atau karier profesional Anda</p>
+          <p className="text-sm text-gray-600 mt-1">Mulai kembangkan usaha atau karier profesional Anda</p>
         </div>
 
         {error && (
@@ -48,35 +48,35 @@ export default function RegisterPage() {
 
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-black-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               placeholder="nama@email.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-black-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               placeholder="••••••••"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-black-700 mb-1">Tipe Akun (Peran)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Tipe Akun (Peran)</label>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#28665A] focus:outline-none bg-white text-sm"
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
             >
               <option value="WORKER">Pekerja / Pencari Kerja</option>
               <option value="EMPLOYER_OWNER">Pemilik UMKM (Owner)</option>
@@ -93,7 +93,7 @@ export default function RegisterPage() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-black-600 mt-6">
+        <p className="text-center text-sm text-gray-600 mt-6">
           Sudah punya akun?{" "}
           <a href="/auth/login" className="text-[#D98652] font-medium hover:underline">
             Masuk di sini

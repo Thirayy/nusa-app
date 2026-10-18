@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import AppShell from "@/components/layout/AppShell";
-import { apiFetch } from "@//lib/api/client";
+import { apiFetch } from "@/lib/api/client";
 
 interface Product {
   id: number;
@@ -65,7 +65,7 @@ export default function EmployerProductsPage() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-[#28665A]">Kelola Produk Usaha</h1>
-          <p className="text-sm text-black-600 mt-1">Tambah dan pantau produk yang dijual di usaha Anda.</p>
+          <p className="text-sm text-gray-600 mt-1">Tambah dan pantau produk yang dijual di usaha Anda.</p>
         </div>
 
         {error && <div className="p-4 bg-red-50 text-red-700 text-sm rounded-xl">{error}</div>}
@@ -73,28 +73,28 @@ export default function EmployerProductsPage() {
 
         {/* Form Tambah Produk */}
         <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
-          <h2 className="text-base font-semibold text-black-800 mb-4">Tambah Produk Baru</h2>
+          <h2 className="text-base font-semibold text-gray-800 mb-4">Tambah Produk Baru</h2>
           <form onSubmit={handleAddProduct} className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-medium text-black-600 mb-1">Nama Produk</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Nama Produk</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Contoh: Kopi Susu Aren"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-black-600 mb-1">Harga (Rp)</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Harga (Rp)</label>
               <input
                 type="number"
                 required
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="18000"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
             <div className="flex items-end">
@@ -110,18 +110,18 @@ export default function EmployerProductsPage() {
 
         {/* Daftar Produk */}
         <div className="bg-white rounded-2xl border border-[#EBE7DF] shadow-sm overflow-hidden">
-          <div className="p-4 border-b border-[#EBE7DF] font-semibold text-black-800">Daftar Produk Aktif</div>
+          <div className="p-4 border-b border-[#EBE7DF] font-semibold text-gray-800">Daftar Produk Aktif</div>
           {loading ? (
-            <div className="p-6 text-center text-black-500">Memuat produk...</div>
+            <div className="p-6 text-center text-gray-500">Memuat produk...</div>
           ) : products.length === 0 ? (
-            <div className="p-8 text-center text-black-500">Belum ada produk tercatat. Silakan tambah produk di atas.</div>
+            <div className="p-8 text-center text-gray-500">Belum ada produk tercatat. Silakan tambah produk di atas.</div>
           ) : (
             <div className="divide-y divide-[#EBE7DF]">
               {products.map((prod) => (
                 <div key={prod.id} className="p-4 flex justify-between items-center">
                   <div>
-                    <h3 className="font-medium text-black-800">{prod.name}</h3>
-                    <p className="text-xs text-black-500">Status: Aktif</p>
+                    <h3 className="font-medium text-gray-800">{prod.name}</h3>
+                    <p className="text-xs text-gray-500">Status: Aktif</p>
                   </div>
                   <div className="text-sm font-bold text-[#28665A]">
                     Rp {Number(prod.price).toLocaleString("id-ID")}

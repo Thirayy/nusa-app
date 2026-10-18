@@ -39,7 +39,7 @@ export default function EmployerCostsPage() {
       <div className="space-y-6 max-w-xl mx-auto">
         <div>
           <h1 className="text-2xl font-bold text-[#28665A]">Catat Biaya Operasional</h1>
-          <p className="text-sm text-black-600 mt-1">Catat pengeluaran harian atau bulanan untuk perhitungan laba usaha.</p>
+          <p className="text-sm text-gray-600 mt-1">Catat pengeluaran harian atau bulanan untuk perhitungan laba usaha.</p>
         </div>
 
         {error && <div className="p-4 bg-red-50 text-red-700 text-sm rounded-xl">{error}</div>}
@@ -48,26 +48,26 @@ export default function EmployerCostsPage() {
         <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
           <form onSubmit={handleRecordCost} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-black-600 mb-1">Keterangan Biaya</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Keterangan Biaya</label>
               <input
                 type="text"
                 required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Contoh: Beli Biji Kopi & Susu"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-black-600 mb-1">Nominal (Rp)</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Nominal (Rp)</label>
               <input
                 type="number"
                 required
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="150000"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 

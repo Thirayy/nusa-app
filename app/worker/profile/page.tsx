@@ -67,7 +67,7 @@ export default function WorkerProfilePage() {
       <div className="space-y-6 max-w-2xl mx-auto">
         <div>
           <h1 className="text-2xl font-bold text-[#28665A]">Profil Profesional Pekerja</h1>
-          <p className="text-sm text-black-600 mt-1">Kelola identitas profesional dan preferensi ketersediaan kerja Anda.</p>
+          <p className="text-sm text-gray-600 mt-1">Kelola identitas profesional dan preferensi ketersediaan kerja Anda.</p>
         </div>
 
         {error && <div className="p-4 bg-amber-50 text-amber-800 text-sm rounded-xl border border-amber-200">{error}</div>}
@@ -76,48 +76,48 @@ export default function WorkerProfilePage() {
         <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
           <form onSubmit={handleSaveProfile} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Nama Tampilan</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Nama Tampilan</label>
               <input
                 type="text"
                 required
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="Contoh: Fathi Zain"
-                className="w-full px-3 py-2 bg-[#FAF7F0] border border-[#D8D2C4] rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Ringkasan Profesional / Bio</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Ringkasan Profesional / Bio</label>
               <textarea
                 rows={3}
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
                 placeholder="Contoh: Barista berpengalaman dengan keahlian pelayanan pelanggan dan manajemen operasional kafe."
-                className="w-full px-3 py-2 bg-[#FAF7F0] border border-[#D8D2C4] rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Lokasi Domisili</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Lokasi Domisili</label>
               <input  
                 type="text"
                 required
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Contoh: Malang"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-black-600 mb-1">Ketersediaan Kerja</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Ketersediaan Kerja</label>
               <input
                 type="text"
                 value={availability}
                 onChange={(e) => setAvailability(e.target.value)}
                 placeholder="Contoh: Full-time / Part-time / Segera"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 

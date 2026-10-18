@@ -40,7 +40,7 @@ export default function LoginPage() {
       <div className="max-w-md w-full bg-[#FFFFFF] rounded-2xl shadow-sm p-8 border border-[#EBE7DF]">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-[#28665A]">Masuk ke NUSA</h1>
-          <p className="text-sm text-dark-600 mt-1">Ekosistem Bisnis & Tenaga Kerja UMKM</p>
+          <p className="text-sm text-gray-600 mt-1">Ekosistem Bisnis & Tenaga Kerja UMKM</p>
         </div>
 
         {error && (
@@ -51,25 +51,25 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-black-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               placeholder="nama@email.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-black-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#28665A] focus:outline-none"
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               placeholder="••••••••"
             />
           </div>
@@ -83,7 +83,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-black-600 mt-6">
+        <p className="text-center text-sm text-gray-600 mt-6">
           Belum punya akun?{" "}
           <a href="/auth/register" className="text-[#D98652] font-medium hover:underline">
             Daftar di sini
