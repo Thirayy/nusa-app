@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { apiFetch } from "@/lib/api/client";
@@ -22,10 +23,10 @@ export default function RegisterPage() {
         body: JSON.stringify({ email, password, role }),
       });
 
-      // Setelah berhasil daftar, arahkan ke halaman login
       router.push("/auth/login");
     } catch (err: any) {
-      setError(err.message || "Gagal melakukan pendaftaran.");
+      const msg = err.message || "Gagal melakukan pendaftaran.";
+      setError(typeof msg === "string" ? msg : JSON.stringify(msg));
     } finally {
       setLoading(false);
     }
@@ -36,7 +37,7 @@ export default function RegisterPage() {
       <div className="max-w-md w-full bg-[#FFFFFF] rounded-2xl shadow-sm p-8 border border-[#EBE7DF]">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-[#28665A]">Daftar Akun NUSA</h1>
-          <p className="text-sm text-gray-600 mt-1">Mulai kembangkan usaha atau karier profesional Anda</p>
+          <p className="text-sm text-black-600 mt-1">Mulai kembangkan usaha atau karier profesional Anda</p>
         </div>
 
         {error && (
@@ -47,7 +48,7 @@ export default function RegisterPage() {
 
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-black-700 mb-1">Email</label>
             <input
               type="email"
               required
@@ -59,7 +60,7 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-black-700 mb-1">Password</label>
             <input
               type="password"
               required
@@ -71,14 +72,15 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Tipe Akun (Peran)</label>
+            <label className="block text-sm font-medium text-black-700 mb-1">Tipe Akun (Peran)</label>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#28665A] focus:outline-none bg-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#28665A] focus:outline-none bg-white text-sm"
             >
-              <option value="WORKER">Pekerja / Pencari Kerja (Worker)</option>
-              <option value="EMPLOYER">Pemilik UMKM (Employer)</option>
+              <option value="WORKER">Pekerja / Pencari Kerja</option>
+              <option value="EMPLOYER_OWNER">Pemilik UMKM (Owner)</option>
+              <option value="EMPLOYER_STAFF">Staff Operasional UMKM</option>
             </select>
           </div>
 
@@ -91,7 +93,7 @@ export default function RegisterPage() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
+        <p className="text-center text-sm text-black-600 mt-6">
           Sudah punya akun?{" "}
           <a href="/auth/login" className="text-[#D98652] font-medium hover:underline">
             Masuk di sini

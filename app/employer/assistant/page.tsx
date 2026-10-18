@@ -49,11 +49,11 @@ export default function EmployerAssistantPage() {
   };
 
   return (
-    <AppShell userRole="EMPLOYER">
+    <AppShell>
       <div className="space-y-6 max-w-4xl mx-auto">
         <div>
           <h1 className="text-2xl font-bold text-[#28665A]">Asisten AI & Decision Room</h1>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-black-600 mt-1">
             Diskusikan performa usaha Anda dan dapatkan analisis berdasarkan data faktual backend.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function EmployerAssistantPage() {
         <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
           <form onSubmit={handleAskAI} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">
+              <label className="block text-xs font-medium text-black-600 mb-1">
                 Pertanyaan atau Kendala Usaha Anda
               </label>
               <textarea
@@ -95,31 +95,31 @@ export default function EmployerAssistantPage() {
           <div className="space-y-6">
             {/* Metrik Faktual yang Digunakan */}
             <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-black-500 mb-3">
                 Data Faktual Bisnis ({result.business_name})
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div className="p-3 bg-[#FAF7F0] rounded-xl">
-                  <p className="text-xs text-gray-500">Omzet</p>
+                  <p className="text-xs text-black-500">Omzet</p>
                   <p className="font-bold text-[#28665A] text-sm mt-1">
                     Rp {result.metrics_used.total_omzet.toLocaleString("id-ID")}
                   </p>
                 </div>
                 <div className="p-3 bg-[#FAF7F0] rounded-xl">
-                  <p className="text-xs text-gray-500">Transaksi</p>
-                  <p className="font-bold text-gray-800 text-sm mt-1">
+                  <p className="text-xs text-black-500">Transaksi</p>
+                  <p className="font-bold text-black-800 text-sm mt-1">
                     {result.metrics_used.total_transactions}
                   </p>
                 </div>
                 <div className="p-3 bg-[#FAF7F0] rounded-xl">
-                  <p className="text-xs text-gray-500">Biaya</p>
+                  <p className="text-xs text-black-500">Biaya</p>
                   <p className="font-bold text-[#D98652] text-sm mt-1">
                     Rp {result.metrics_used.total_costs.toLocaleString("id-ID")}
                   </p>
                 </div>
                 <div className="p-3 bg-[#FAF7F0] rounded-xl">
-                  <p className="text-xs text-gray-500">Estimasi Hasil</p>
-                  <p className="font-bold text-gray-800 text-sm mt-1">
+                  <p className="text-xs text-black-500">Estimasi Hasil</p>
+                  <p className="font-bold text-black-800 text-sm mt-1">
                     Rp {result.metrics_used.estimated_business_result.toLocaleString("id-ID")}
                   </p>
                 </div>
@@ -129,10 +129,10 @@ export default function EmployerAssistantPage() {
             {/* Jawaban Naratif AI */}
             <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm space-y-4">
               <h3 className="text-sm font-bold text-[#28665A]">Hasil Analisis Asisten AI</h3>
-              <div className="text-sm text-gray-700 whitespace-pre-line leading-relaxed bg-[#FAF7F0] p-4 rounded-xl border border-[#EBE7DF]">
+              <div className="text-sm text-black-700 whitespace-pre-line leading-relaxed bg-[#FAF7F0] p-4 rounded-xl border border-[#EBE7DF]">
                 {result.ai_analysis}
               </div>
-              <p className="text-xs text-gray-400 italic">* {result.disclaimer}</p>
+              <p className="text-xs text-black-400 italic">* {result.disclaimer}</p>
             </div>
           </div>
         )}

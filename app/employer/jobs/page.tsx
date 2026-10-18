@@ -71,11 +71,11 @@ export default function EmployerJobsPage() {
   };
 
   return (
-    <AppShell userRole="EMPLOYER">
+    <AppShell>
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-[#28665A]">Lowongan & Pelamar</h1>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-black-600 mt-1">
             Publikasikan lowongan pekerjaan untuk usaha Anda dan temukan kandidat terbaik.
           </p>
         </div>
@@ -85,11 +85,11 @@ export default function EmployerJobsPage() {
 
         {/* Form Buat Lowongan */}
         <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm">
-          <h2 className="text-base font-semibold text-gray-800 mb-4">Buat Lowongan Baru</h2>
+          <h2 className="text-base font-semibold text-black-800 mb-4">Buat Lowongan Baru</h2>
           <form onSubmit={handleCreateJob} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Judul Posisi</label>
+                <label className="block text-xs font-medium text-black-600 mb-1">Judul Posisi</label>
                 <input
                   type="text"
                   required
@@ -100,7 +100,7 @@ export default function EmployerJobsPage() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Lokasi</label>
+                <label className="block text-xs font-medium text-black-600 mb-1">Lokasi</label>
                 <input
                   type="text"
                   required
@@ -113,7 +113,7 @@ export default function EmployerJobsPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Deskripsi Pekerjaan</label>
+              <label className="block text-xs font-medium text-black-600 mb-1">Deskripsi Pekerjaan</label>
               <textarea
                 rows={3}
                 required
@@ -126,7 +126,7 @@ export default function EmployerJobsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Tipe Pekerjaan</label>
+                <label className="block text-xs font-medium text-black-600 mb-1">Tipe Pekerjaan</label>
                 <select
                   value={employmentType}
                   onChange={(e) => setEmploymentType(e.target.value)}
@@ -138,7 +138,7 @@ export default function EmployerJobsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Persyaratan</label>
+                <label className="block text-xs font-medium text-black-600 mb-1">Persyaratan</label>
                 <input
                   type="text"
                   required
@@ -161,19 +161,19 @@ export default function EmployerJobsPage() {
 
         {/* Daftar Lowongan Aktif */}
         <div className="bg-white rounded-2xl border border-[#EBE7DF] shadow-sm overflow-hidden">
-          <div className="p-4 border-b border-[#EBE7DF] font-semibold text-gray-800">Lowongan Terpublikasi</div>
+          <div className="p-4 border-b border-[#EBE7DF] font-semibold text-black-800">Lowongan Terpublikasi</div>
           {jobs.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">Belum ada lowongan yang dibuat.</div>
+            <div className="p-8 text-center text-black-500">Belum ada lowongan yang dibuat.</div>
           ) : (
             <div className="divide-y divide-[#EBE7DF]">
               {jobs.map((job) => (
                 <div key={job.id} className="p-4 flex justify-between items-center">
                   <div>
-                    <h3 className="font-medium text-gray-800">{job.title}</h3>
-                    <p className="text-xs text-gray-500">
+                    <h3 className="font-medium text-black-800">{job.title}</h3>
+                    <p className="text-xs text-black-500">
                       {job.location} • {job.employment_type} • Status: <span className="text-[#28665A] font-semibold">{job.status}</span>
                     </p>
-                    <p className="text-xs text-gray-600 mt-1">{job.description}</p>
+                    <p className="text-xs text-black-600 mt-1">{job.description}</p>
                   </div>
                 </div>
               ))}

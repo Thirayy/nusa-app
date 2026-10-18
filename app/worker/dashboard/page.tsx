@@ -52,11 +52,11 @@ export default function WorkerDashboardPage() {
   };
 
   return (
-    <AppShell userRole="WORKER">
+    <AppShell>
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-[#28665A]">Cari Lowongan Pekerjaan</h1>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-black-600 mt-1">
             Temukan peluang karier yang sesuai dengan keterampilan dan preferensi Anda.
           </p>
         </div>
@@ -65,11 +65,11 @@ export default function WorkerDashboardPage() {
         {success && <div className="p-4 bg-green-50 text-green-700 text-sm rounded-xl">{success}</div>}
 
         {loading ? (
-          <div className="p-8 text-center text-gray-500 bg-white rounded-2xl border border-[#EBE7DF]">
+          <div className="p-8 text-center text-black-500 bg-white rounded-2xl border border-[#EBE7DF]">
             Memuat lowongan tersedia...
           </div>
         ) : jobs.length === 0 ? (
-          <div className="p-8 text-center text-gray-500 bg-white rounded-2xl border border-[#EBE7DF]">
+          <div className="p-8 text-center text-black-500 bg-white rounded-2xl border border-[#EBE7DF]">
             Belum ada lowongan pekerjaan yang tersedia saat ini.
           </div>
         ) : (
@@ -78,14 +78,14 @@ export default function WorkerDashboardPage() {
               <div key={job.id} className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-lg text-gray-800">{job.title}</h3>
+                    <h3 className="font-bold text-lg text-black-800">{job.title}</h3>
                     <span className="px-2.5 py-1 bg-[#FAF7F0] text-[#28665A] text-xs font-semibold rounded-full border border-[#EBE7DF]">
                       {job.employment_type}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 mb-3">📍 {job.location}</p>
-                  <p className="text-sm text-gray-700 mb-4">{job.description}</p>
-                  <div className="bg-[#FAF7F0] p-3 rounded-xl mb-4 text-xs text-gray-600">
+                  <p className="text-xs text-black-500 mb-3">📍 {job.location}</p>
+                  <p className="text-sm text-black-700 mb-4">{job.description}</p>
+                  <div className="bg-[#FAF7F0] p-3 rounded-xl mb-4 text-xs text-black-600">
                     <span className="font-semibold">Persyaratan:</span> {job.requirements}
                   </div>
                 </div>

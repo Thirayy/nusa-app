@@ -62,11 +62,11 @@ export default function EmployerSalesPage() {
   };
 
   return (
-    <AppShell userRole="EMPLOYER">
+    <AppShell>
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-[#28665A]">Catat Penjualan Usaha</h1>
-          <p className="text-sm text-gray-600 mt-1">Catat transaksi penjualan produk harian Anda.</p>
+          <p className="text-sm text-black-600 mt-1">Catat transaksi penjualan produk harian Anda.</p>
         </div>
 
         {error && <div className="p-4 bg-red-50 text-red-700 text-sm rounded-xl">{error}</div>}
@@ -75,7 +75,7 @@ export default function EmployerSalesPage() {
         <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm max-w-xl">
           <form onSubmit={handleRecordSale} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Pilih Produk</label>
+              <label className="block text-xs font-medium text-black-600 mb-1">Pilih Produk</label>
               <select
                 value={selectedProductId}
                 onChange={(e) => setSelectedProductId(Number(e.target.value))}
@@ -90,7 +90,7 @@ export default function EmployerSalesPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Jumlah (Kuantitas)</label>
+              <label className="block text-xs font-medium text-black-600 mb-1">Jumlah (Kuantitas)</label>
               <input
                 type="number"
                 min="1"

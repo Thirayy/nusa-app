@@ -22,7 +22,8 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password }),
       });
 
-      if (res.role === "EMPLOYER") {
+      // Redirect berdasarkan role persis dari backend
+      if (res.role === "EMPLOYER_OWNER" || res.role === "EMPLOYER_STAFF") {
         router.push("/employer/dashboard");
       } else {
         router.push("/worker/dashboard");
@@ -39,7 +40,7 @@ export default function LoginPage() {
       <div className="max-w-md w-full bg-[#FFFFFF] rounded-2xl shadow-sm p-8 border border-[#EBE7DF]">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-[#28665A]">Masuk ke NUSA</h1>
-          <p className="text-sm text-gray-600 mt-1">Ekosistem Bisnis & Tenaga Kerja UMKM</p>
+          <p className="text-sm text-dark-600 mt-1">Ekosistem Bisnis & Tenaga Kerja UMKM</p>
         </div>
 
         {error && (
@@ -50,7 +51,7 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-black-700 mb-1">Email</label>
             <input
               type="email"
               required
@@ -62,7 +63,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-black-700 mb-1">Password</label>
             <input
               type="password"
               required
@@ -82,7 +83,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
+        <p className="text-center text-sm text-black-600 mt-6">
           Belum punya akun?{" "}
           <a href="/auth/register" className="text-[#D98652] font-medium hover:underline">
             Daftar di sini
