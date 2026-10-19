@@ -22,7 +22,7 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password }),
       });
 
-      // Redirect berdasarkan role persis dari backend
+      // Pemisahan tegas sesuai role
       if (res.role === "EMPLOYER_OWNER" || res.role === "EMPLOYER_STAFF") {
         router.push("/employer/dashboard");
       } else {

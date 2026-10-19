@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AppShell from "@/components/layout/AppShell";
 import { apiFetch } from "@/lib/api/client";
 
@@ -11,33 +11,49 @@ interface Product {
   is_active: number;
 }
 
+interface BusinessResponse {
+  id: number;
+  name: string;
+}
+
 export default function EmployerProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [businessId, setBusinessId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const businessId = 1; // ID bisnis aktif untuk MVP
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async (bizId: number) => {
     try {
-      const data = await apiFetch<Product[]>(`/api/v1/businesses/${businessId}/products`);
+      const data = await apiFetch<Product[]>(`/api/v1/businesses/${bizId}/products`);
       setProducts(data);
     } catch (err: any) {
       setError(err.message || "Gagal memuat produk.");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    async function init() {
+      try {
+        const business = await apiFetch<BusinessResponse>("/api/v1/businesses/me/active");
+        setBusinessId(business.id);
+        fetchProducts(business.id);
+      } catch (err: any) {
+        setError("Profil bisnis belum ditemukan. Silakan buat profil bisnis terlebih dahulu.");
+        setLoading(false);
+      }
+    }
+    init();
+  }, [fetchProducts]);
 
   const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!businessId) return;
+
     setError("");
     setSuccess("");
 
@@ -54,7 +70,7 @@ export default function EmployerProductsPage() {
       setSuccess("Produk berhasil ditambahkan!");
       setName("");
       setPrice("");
-      fetchProducts();
+      fetchProducts(businessId);
     } catch (err: any) {
       setError(err.message || "Gagal menambahkan produk.");
     }
@@ -100,7 +116,8 @@ export default function EmployerProductsPage() {
             <div className="flex items-end">
               <button
                 type="submit"
-                className="w-full bg-[#28665A] text-white py-2 rounded-lg text-sm font-medium hover:bg-[#205248] transition"
+                disabled={!businessId}
+                className="w-full bg-[#28665A] text-white py-2 rounded-lg text-sm font-medium hover:bg-[#205248] transition disabled:opacity-50"
               >
                 Simpan Produk
               </button>

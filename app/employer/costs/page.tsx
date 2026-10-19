@@ -1,19 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppShell from "@/components/layout/AppShell";
 import { apiFetch } from "@/lib/api/client";
+
+interface BusinessResponse {
+  id: number;
+  name: string;
+}
 
 export default function EmployerCostsPage() {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
+  const [businessId, setBusinessId] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const businessId = 1;
+  // Ambil ID bisnis aktif secara dinamis saat halaman dimuat
+  useEffect(() => {
+    async function fetchActiveBusiness() {
+      try {
+        const business = await apiFetch<BusinessResponse>("/api/v1/businesses/me/active");
+        setBusinessId(business.id);
+      } catch (err: any) {
+        setError("Profil bisnis belum ditemukan. Silakan buat profil bisnis terlebih dahulu.");
+      }
+    }
+    fetchActiveBusiness();
+  }, []);
 
   const handleRecordCost = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!businessId) return;
+
     setError("");
     setSuccess("");
 
@@ -73,7 +92,8 @@ export default function EmployerCostsPage() {
 
             <button
               type="submit"
-              className="w-full bg-[#28665A] text-white py-2.5 rounded-lg text-sm font-medium hover:bg-[#205248] transition"
+              disabled={!businessId}
+              className="w-full bg-[#28665A] text-white py-2.5 rounded-lg text-sm font-medium hover:bg-[#205248] transition disabled:opacity-50"
             >
               Simpan Catatan Biaya
             </button>

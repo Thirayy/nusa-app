@@ -13,27 +13,43 @@ interface DashboardData {
   disclaimer: string;
 }
 
+interface UserData {
+  role: string;
+}
+
+interface BusinessResponse {
+  id: number;
+  name: string;
+}
+
 export default function EmployerDashboardPage() {
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
+  const [role, setRole] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Untuk MVP, kita asumsikan ID bisnis pertama adalah 1 atau diambil dari state bisnis aktif
-  const businessId = 1;
-
   useEffect(() => {
-    async function fetchDashboard() {
+    async function fetchData() {
       try {
-        const data = await apiFetch<DashboardData>(`/api/v1/businesses/${businessId}/dashboard`);
-        setDashboard(data);
+        // Ambil data user & bisnis aktif secara bersamaan secara dinamis
+        const [userRes, businessRes] = await Promise.all([
+          apiFetch<UserData>("/api/v1/auth/me"),
+          apiFetch<BusinessResponse>("/api/v1/businesses/me/active")
+        ]);
+        
+        setRole(userRes.role);
+
+        // Ambil data dashboard menggunakan ID bisnis yang didapat dari akun aktif
+        const dashboardRes = await apiFetch<DashboardData>(`/api/v1/businesses/${businessRes.id}/dashboard`);
+        setDashboard(dashboardRes);
       } catch (err: any) {
-        setError(err.message || "Gagal memuat data ringkasan usaha.");
+        setError(err.message || "Gagal memuat data ringkasan usaha. Pastikan Anda sudah membuat profil bisnis.");
       } finally {
         setLoading(false);
       }
     }
-    fetchDashboard();
-  }, [businessId]);
+    fetchData();
+  }, []);
 
   return (
     <AppShell>
@@ -41,7 +57,7 @@ export default function EmployerDashboardPage() {
         {/* Header Sapaan */}
         <div>
           <h1 className="text-2xl font-bold text-[#28665A]">
-            {dashboard ? `Halo, Pemilik ${dashboard.business_name}` : "Beranda Usaha"}
+            {dashboard ? `Halo, ${dashboard.business_name}` : "Beranda Usaha"}
           </h1>
           <p className="text-sm text-gray-600 mt-1">
             Kelola operasional dan pantau performa usaha Anda dengan mudah.
@@ -64,37 +80,70 @@ export default function EmployerDashboardPage() {
         {/* Konten Utama Dashboard */}
         {!loading && dashboard && (
           <>
-            {/* Tindakan Cepat (Quick Actions) */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <a
-                href="/employer/sales"
-                className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
-              >
-                <div className="text-xl mb-1">💰</div>
-                <h3 className="text-sm font-semibold text-[#28665A]">Catat Penjualan</h3>
-              </a>
-              <a
-                href="/employer/products"
-                className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
-              >
-                <div className="text-xl mb-1">📦</div>
-                <h3 className="text-sm font-semibold text-[#28665A]">Tambah Produk</h3>
-              </a>
-              <a
-                href="/employer/jobs"
-                className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
-              >
-                <div className="text-xl mb-1">👥</div>
-                <h3 className="text-sm font-semibold text-[#28665A]">Buat Lowongan</h3>
-              </a>
-              <a
-                href="/employer/assistant"
-                className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
-              >
-                <div className="text-xl mb-1">🤖</div>
-                <h3 className="text-sm font-semibold text-[#28665A]">Tanya AI</h3>
-              </a>
-            </div>
+            {/* Tindakan Cepat (Quick Actions) - Dinamis Berdasarkan Role */}
+            {role === "EMPLOYER_OWNER" ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a
+                  href="/employer/sales"
+                  className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
+                >
+                  <div className="text-xl mb-1">💰</div>
+                  <h3 className="text-sm font-semibold text-[#28665A]">Catat Penjualan</h3>
+                </a>
+                <a
+                  href="/employer/products"
+                  className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
+                >
+                  <div className="text-xl mb-1">📦</div>
+                  <h3 className="text-sm font-semibold text-[#28665A]">Tambah Produk</h3>
+                </a>
+                <a
+                  href="/employer/jobs"
+                  className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
+                >
+                  <div className="text-xl mb-1">👥</div>
+                  <h3 className="text-sm font-semibold text-[#28665A]">Buat Lowongan</h3>
+                </a>
+                <a
+                  href="/employer/assistant"
+                  className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
+                >
+                  <div className="text-xl mb-1">🤖</div>
+                  <h3 className="text-sm font-semibold text-[#28665A]">Tanya AI</h3>
+                </a>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a
+                  href="/employer/sales"
+                  className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
+                >
+                  <div className="text-xl mb-1">💰</div>
+                  <h3 className="text-sm font-semibold text-[#28665A]">Catat Penjualan</h3>
+                </a>
+                <a
+                  href="/employer/products"
+                  className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
+                >
+                  <div className="text-xl mb-1">📦</div>
+                  <h3 className="text-sm font-semibold text-[#28665A]">Tambah Produk</h3>
+                </a>
+                <a
+                  href="/employer/costs"
+                  className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
+                >
+                  <div className="text-xl mb-1">🧾</div>
+                  <h3 className="text-sm font-semibold text-[#28665A]">Catat Biaya</h3>
+                </a>
+                <a
+                  href="/employer/work-records"
+                  className="p-4 bg-white rounded-xl border border-[#EBE7DF] hover:border-[#28665A] transition text-center shadow-sm"
+                >
+                  <div className="text-xl mb-1">📋</div>
+                  <h3 className="text-sm font-semibold text-[#28665A]">Rekam Kerja</h3>
+                </a>
+              </div>
+            )}
 
             {/* Ringkasan Metrik (Metric Cards) */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

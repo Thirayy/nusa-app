@@ -1,25 +1,46 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppShell from "@/components/layout/AppShell";
 import { apiFetch } from "@/lib/api/client";
 
+interface BusinessResponse {
+  id: number;
+  name: string;
+}
+
 export default function EmployerWorkRecordsPage() {
+  const [businessId, setBusinessId] = useState<number | null>(null);
   const [title, setTitle] = useState("");
   const [tasks, setTasks] = useState("");
   const [skills, setSkills] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [workerUserId, setWorkerUserId] = useState("");
-  const [recordIdToVerify, setRecordIdToVerify] = useState("");
+  const [workerEmail, setWorkerEmail] = useState(""); 
+  
+  // Diubah dari ID angka menjadi Email Pekerja
+  const [workerEmailToVerify, setWorkerEmailToVerify] = useState("");
   
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const businessId = 1;
+  // Ambil ID bisnis aktif secara dinamis saat halaman dimuat
+  useEffect(() => {
+    async function fetchActiveBusiness() {
+      try {
+        const business = await apiFetch<BusinessResponse>("/api/v1/businesses/me/active");
+        setBusinessId(business.id);
+      } catch (err: any) {
+        setError("Profil bisnis belum ditemukan. Silakan buat profil bisnis terlebih dahulu.");
+      }
+    }
+    fetchActiveBusiness();
+  }, []);
 
   const handleCreateRecord = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!businessId) return;
+
     setError("");
     setSuccess("");
 
@@ -32,17 +53,17 @@ export default function EmployerWorkRecordsPage() {
           skills,
           start_date: startDate,
           end_date: endDate || null,
-          worker_user_id: workerUserId ? parseInt(workerUserId, 10) : null,
+          worker_email: workerEmail ? workerEmail.trim() : null,
         }),
       });
 
-      setSuccess("Rekam kerja berhasil dibuat!");
+      setSuccess("Rekam kerja berhasil dibuat dan terikat ke staff!");
       setTitle("");
       setTasks("");
       setSkills("");
       setStartDate("");
       setEndDate("");
-      setWorkerUserId("");
+      setWorkerEmail("");
     } catch (err: any) {
       setError(err.message || "Gagal membuat rekam kerja.");
     }
@@ -53,17 +74,18 @@ export default function EmployerWorkRecordsPage() {
     setError("");
     setSuccess("");
 
-    if (!recordIdToVerify) {
-      setError("Masukkan ID Rekam Kerja yang ingin diverifikasi.");
+    if (!workerEmailToVerify) {
+      setError("Masukkan email pekerja yang ingin diverifikasi.");
       return;
     }
 
     try {
-      await apiFetch(`/api/v1/work-records/${recordIdToVerify}/verify`, {
+      await apiFetch(`/api/v1/work-records/verify-by-email`, {
         method: "PATCH",
+        body: JSON.stringify({ worker_email: workerEmailToVerify.trim() }),
       });
-      setSuccess(`Rekam kerja ID #${recordIdToVerify} berhasil diverifikasi sah ke Work Passport!`);
-      setRecordIdToVerify("");
+      setSuccess(`Semua rekam kerja untuk email ${workerEmailToVerify} berhasil diverifikasi sah ke Work Passport!`);
+      setWorkerEmailToVerify("");
     } catch (err: any) {
       setError(err.message || "Gagal memverifikasi rekam kerja.");
     }
@@ -143,37 +165,38 @@ export default function EmployerWorkRecordsPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">ID User Pekerja (Opsional / Jika sudah punya akun)</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Email Akun Pekerja / Staff (Opsional)</label>
               <input
-                type="number"
-                value={workerUserId}
-                onChange={(e) => setWorkerUserId(e.target.value)}
-                placeholder="Contoh: 2"
+                type="email"
+                value={workerEmail}
+                onChange={(e) => setWorkerEmail(e.target.value)}
+                placeholder="Contoh: staff.budi@mail.com"
                 className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-[#28665A] text-white py-2.5 rounded-lg text-sm font-medium hover:bg-[#205248] transition"
+              disabled={!businessId}
+              className="w-full bg-[#28665A] text-white py-2.5 rounded-lg text-sm font-medium hover:bg-[#205248] transition disabled:opacity-50"
             >
               Simpan Rekam Kerja
             </button>
           </form>
         </div>
 
-        {/* Form Verifikasi Cepat */}
+        {/* Form Verifikasi Cepat Berbasis Email */}
         <div className="bg-white p-6 rounded-2xl border border-[#EBE7DF] shadow-sm space-y-4">
-          <h2 className="text-base font-semibold text-gray-800">Verifikasi Rekam Kerja</h2>
+          <h2 className="text-base font-semibold text-gray-800">Verifikasi Rekam Kerja via Email</h2>
           <form onSubmit={handleVerifyRecord} className="flex gap-4 items-end">
             <div className="flex-1">
-              <label className="block text-xs font-medium text-gray-700 mb-1">ID Rekam Kerja</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Email Pekerja</label>
               <input
-                type="number"
+                type="email"
                 required
-                value={recordIdToVerify}
-                onChange={(e) => setRecordIdToVerify(e.target.value)}
-                placeholder="Masukkan ID Rekam Kerja"
+                value={workerEmailToVerify}
+                onChange={(e) => setWorkerEmailToVerify(e.target.value)}
+                placeholder="Contoh: budi@mail.com"
                 className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:border-[#28665A] focus:ring-2 focus:ring-[#28665A] focus:outline-none"
               />
             </div>

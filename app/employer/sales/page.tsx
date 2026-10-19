@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AppShell from "@/components/layout/AppShell";
 import { apiFetch } from "@/lib/api/client";
 
@@ -15,32 +15,47 @@ interface SaleItem {
   quantity: number;
 }
 
+interface BusinessResponse {
+  id: number;
+  name: string;
+}
+
 export default function EmployerSalesPage() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [items, setItems] = useState<SaleItem[]>([{ product_id: 0, quantity: 1 }]);
+  const [businessId, setBusinessId] = useState<number | null>(null);
+  const [items, setItems] = useState<SaleItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const businessId = 1; // ID bisnis aktif untuk MVP
+  const fetchProducts = useCallback(async (bizId: number) => {
+    try {
+      const data = await apiFetch<Product[]>(`/api/v1/businesses/${bizId}/products`);
+      setProducts(data);
+      if (data.length > 0) {
+        setItems([{ product_id: data[0].id, quantity: 1 }]);
+      }
+    } catch (err: any) {
+      setError("Gagal memuat produk untuk transaksi.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    async function fetchProducts() {
+    async function init() {
       try {
-        const data = await apiFetch<Product[]>(`/api/v1/businesses/${businessId}/products`);
-        setProducts(data);
-        if (data.length > 0) {
-          setItems([{ product_id: data[0].id, quantity: 1 }]);
-        }
+        const business = await apiFetch<BusinessResponse>("/api/v1/businesses/me/active");
+        setBusinessId(business.id);
+        fetchProducts(business.id);
       } catch (err: any) {
-        setError("Gagal memuat produk untuk transaksi.");
-      } finally {
+        setError("Profil bisnis belum ditemukan. Silakan buat profil bisnis terlebih dahulu.");
         setLoading(false);
       }
     }
-    fetchProducts();
-  }, [businessId]);
+    init();
+  }, [fetchProducts]);
 
   const handleAddItem = () => {
     if (products.length === 0) return;
@@ -60,6 +75,8 @@ export default function EmployerSalesPage() {
 
   const handleRecordSales = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!businessId) return;
+
     setError("");
     setSuccess("");
     setSubmitting(true);
@@ -146,7 +163,7 @@ export default function EmployerSalesPage() {
 
               <button
                 type="submit"
-                disabled={submitting}
+                disabled={submitting || !businessId}
                 className="w-full bg-[#28665A] text-white py-2.5 rounded-lg text-sm font-medium hover:bg-[#205248] transition disabled:opacity-50 mt-4"
               >
                 {submitting ? "Menyimpan..." : "Simpan Transaksi Penjualan"}

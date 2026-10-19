@@ -34,16 +34,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Menu Staff Operasional (Hanya operasional harian, TIDAK ADA Lowongan & AI Decision)
-  const staffLinks = [
-    { href: "/employer/dashboard", label: "Beranda & Ringkasan" },
-    { href: "/employer/products", label: "Kelola Produk" },
-    { href: "/employer/sales", label: "Catat Penjualan" },
-    { href: "/employer/costs", label: "Catat Biaya Operasional" },
-    { href: "/employer/work-records", label: "Rekam Kerja" },
-  ];
-
-  // Menu Eksklusif Pemilik Usaha / Owner (Lengkap dengan Lowongan & AI Decision Room)
+  // Menu Pemilik Usaha (Owner)
   const ownerLinks = [
     { href: "/employer/dashboard", label: "Beranda & Ringkasan" },
     { href: "/employer/business", label: "Profil Bisnis" },
@@ -55,9 +46,20 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     { href: "/employer/assistant", label: "Asisten AI Decision" },
   ];
 
-  // Menu Pekerja / Worker
+  // Menu Staff Operasional
+  const staffLinks = [
+    { href: "/employer/dashboard", label: "Beranda & Ringkasan" },
+    { href: "/employer/connect", label: "Tautkan Bisnis" }, // <-- Tambahkan ini
+    { href: "/employer/products", label: "Kelola Produk" },
+    { href: "/employer/sales", label: "Catat Penjualan" },
+    { href: "/employer/costs", label: "Catat Biaya Operasional" },
+    { href: "/employer/work-records", label: "Rekam Kerja" },
+  ];
+
+  // Menu Pekerja (Worker) lengkap sesuai permintaan
   const workerLinks = [
-    { href: "/worker/dashboard", label: "Cari Lowongan" },
+    { href: "/worker/dashboard", label: "Beranda Pekerja" },
+    { href: "/worker/jobs", label: "Cari Lowongan" },
     { href: "/worker/applications", label: "Status Lamaran" },
     { href: "/worker/passport", label: "Work Passport" },
     { href: "/worker/profile", label: "Profil Profesional" },
@@ -72,7 +74,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   if (loadingUser) {
     return (
-      <div className="min-h-screen bg-[#FAF7F0] flex items-center justify-center text-black-600">
+      <div className="min-h-screen bg-[#FAF7F0] flex items-center justify-center text-gray-600">
         Memuat sesi pengguna...
       </div>
     );
@@ -85,12 +87,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <div className="p-6 space-y-6">
           <div>
             <h1 className="text-xl font-black text-[#28665A] tracking-tight">NUSA</h1>
-            <p className="text-xs text-black-400 mt-0.5">AI Business & Workforce</p>
+            <p className="text-xs text-gray-400 mt-0.5">AI Business & Workforce</p>
           </div>
 
           <div className="space-y-1">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-black-400 mb-2 px-3">
-              Menu Utama ({role.replace("_", " ")})
+            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2 px-3">
+              Menu Utama ({role ? role.replace("_", " ") : "PENGGUNA"})
             </p>
             {currentLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -101,7 +103,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   className={`block px-3 py-2.5 rounded-xl text-sm font-medium transition ${
                     isActive
                       ? "bg-[#28665A] text-white shadow-sm"
-                      : "text-black-600 hover:bg-[#FAF7F0] hover:text-[#28665A]"
+                      : "text-gray-700 hover:bg-[#FAF7F0] hover:text-[#28665A]"
                   }`}
                 >
                   {link.label}

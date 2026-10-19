@@ -20,12 +20,10 @@ export default function EmployerBusinessPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const businessId = 1;
-
   useEffect(() => {
     async function fetchBusiness() {
       try {
-        const data = await apiFetch<BusinessProfile>(`/api/v1/businesses/${businessId}`);
+        const data = await apiFetch<BusinessProfile>("/api/v1/businesses/me/active");
         setBusiness(data);
         setName(data.name);
         setCategory(data.category);
@@ -37,7 +35,7 @@ export default function EmployerBusinessPage() {
       }
     }
     fetchBusiness();
-  }, [businessId]);
+  }, []);
 
   const handleCreateBusiness = async (e: React.FormEvent) => {
     e.preventDefault();
